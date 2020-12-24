@@ -55,7 +55,7 @@ public class PartController {
 
     //get part by description
     @GetMapping("/parts/{description}")
-    public List<Part> getPartsByDescription(@PathVariable String description)
+    public List<Part> findPartsByDescription(@PathVariable String description)
     {
         return  partRepository.findPartsByDescriptionContaining(description);
 
@@ -69,6 +69,8 @@ public class PartController {
         return part;
     }
 
+
+    //update
     @PutMapping("/parts")
     public Part updatePart(@RequestBody Part part)
     {
