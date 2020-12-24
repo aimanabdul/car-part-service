@@ -12,6 +12,6 @@ public interface PartRepository extends JpaRepository<Part, Integer> {
 
     Part findPartByEanNumber (String eanNumber);
 
-    List<Part> findAllByDescriptionIsContaining(String description);
+    List<Part> findAllByDescriptionLike(String description);
 
 }

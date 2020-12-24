@@ -60,7 +60,7 @@ public class PartController {
     @GetMapping("/parts/{description}")
     public List<Part> findPartsByDescriptionContaining(@PathVariable String description)
     {
-        return  partRepository.findAllByDescriptionIsContaining(description);
+        return  partRepository.findAllByDescriptionLike(description);
 
     }
 
