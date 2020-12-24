@@ -102,7 +102,7 @@ public class PartControllerIntegrationTests {
     public void givenPart_whenFindPartsByDescription_thenReturnJsonPart() throws Exception
     {
 
-        mockMvc.perform(get("/parts/part/{description}", "Remschijf"))
+        mockMvc.perform(get("/parts/{description}", "Remschijf"))
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(3)))

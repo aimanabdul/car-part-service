@@ -118,7 +118,7 @@ public class PartControllerUnitTests {
         partslist.add(part2);
         partslist.add(part3);
 
-        given(partRepository.findPartsByDescriptionContaining("Remschijf")).willReturn(partslist);
+        given(partRepository.findAllByDescriptionIsContaining("Remschijf")).willReturn(partslist);
 
 
         mockMvc.perform(get("/parts/part/{description}", "Remschijf"))

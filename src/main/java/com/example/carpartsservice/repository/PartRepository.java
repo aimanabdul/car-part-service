@@ -9,10 +9,9 @@ import java.util.List;
 @Repository
 public interface PartRepository extends JpaRepository<Part, Integer> {
 
-    Part findPartByIdAndEanNumber(Integer id, String eanNumber);
 
     Part findPartByEanNumber (String eanNumber);
 
-    List<Part> findPartsByDescriptionContaining(String description);
+    List<Part> findAllByDescriptionIsContaining(String description);
 
 }
