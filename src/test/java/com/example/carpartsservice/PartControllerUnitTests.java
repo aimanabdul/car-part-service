@@ -65,17 +65,17 @@ public class PartControllerUnitTests {
                 .andExpect(jsonPath("$[0].description",is("Remschijf zonder bevestigingsbout, zonder wielnaaf")))
                 .andExpect(jsonPath("$[0].eanNumber",is("1245745879654732")))
                 .andExpect(jsonPath("$[0].price",is(12.95)))
-                .andExpect(jsonPath("$[0].category",is(category)))
+                .andExpect(jsonPath("$[0].category.name",is("Remsysteem")))
                 .andExpect(jsonPath("$[1].name",is("RIDEX Remblokkenset")))
                 .andExpect(jsonPath("$[1].description",is("Remschijf")))
                 .andExpect(jsonPath("$[1].eanNumber",is("147565748965247")))
                 .andExpect(jsonPath("$[1].price",is(15.00)))
-                .andExpect(jsonPath("$[1].category",is(category)))
+                .andExpect(jsonPath("$[1].category.name",is("Remsysteem")))
                 .andExpect(jsonPath("$[2].name",is("BLUE PRINT RE  MBLOKKENSET")))
                 .andExpect(jsonPath("$[2].description",is("Remschijf, Remblokkenset")))
                 .andExpect(jsonPath("$[2].eanNumber",is("394365748965784")))
                 .andExpect(jsonPath("$[2].price",is(17.50)))
-                .andExpect(jsonPath("$[2].category",is(category)));
+                .andExpect(jsonPath("$[2].category.name",is("Remsysteem")));
     }
 
 
@@ -120,7 +120,7 @@ public class PartControllerUnitTests {
 
         given(partRepository.findPartsByDescriptionContaining("Remschijf")).willReturn(partslist);
 
-        Category category = new Category("Remsysteem");
+
         mockMvc.perform(get("/parts/part/{description}", "Remschijf"))
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
@@ -129,17 +129,17 @@ public class PartControllerUnitTests {
                 .andExpect(jsonPath("$[0].description",is("Remschijf zonder bevestigingsbout, zonder wielnaaf")))
                 .andExpect(jsonPath("$[0].eanNumber",is("1245745879654732")))
                 .andExpect(jsonPath("$[0].price",is(12.95)))
-                .andExpect(jsonPath("$[0].category",is(category)))
+                .andExpect(jsonPath("$[0].category.name",is("Remsysteem")))
                 .andExpect(jsonPath("$[1].name",is("RIDEX Remblokkenset")))
                 .andExpect(jsonPath("$[1].description",is("Remschijf")))
                 .andExpect(jsonPath("$[1].eanNumber",is("147565748965247")))
                 .andExpect(jsonPath("$[1].price",is(15.00)))
-                .andExpect(jsonPath("$[1].category",is(category)))
+                .andExpect(jsonPath("$[1].category.name",is("Remsysteem")))
                 .andExpect(jsonPath("$[2].name",is("BLUE PRINT RE  MBLOKKENSET")))
                 .andExpect(jsonPath("$[2].description",is("Remschijf, Remblokkenset")))
                 .andExpect(jsonPath("$[2].eanNumber",is("394365748965784")))
                 .andExpect(jsonPath("$[2].price",is(17.50)))
-                .andExpect(jsonPath("$[2].category",is(category)));
+                .andExpect(jsonPath("$[2].category.name",is("Remsysteem")));
     }
 
 
@@ -147,7 +147,7 @@ public class PartControllerUnitTests {
     @Test
     public void whenPostPart_thenReturnJsonPart() throws Exception {
         Part part = new Part("POSCH Getande riem", "Distributieriem", "218865755965790", 17.50, new Category("Motor"));
-        Category category = new Category("Motor");
+
         mockMvc.perform(post("/parts")
                 .content(mapper.writeValueAsString(part))
                 .contentType(MediaType.APPLICATION_JSON))
@@ -157,7 +157,7 @@ public class PartControllerUnitTests {
                 .andExpect(jsonPath("$.description",is("Distributieriem")))
                 .andExpect(jsonPath("$.eanNumber",is("218865755965790")))
                 .andExpect(jsonPath("$.price",is(17.50)))
-                .andExpect(jsonPath("$.category",is(category)));
+                .andExpect(jsonPath("$.category.name",is("Motor")));
     }
 
 
@@ -173,7 +173,7 @@ public class PartControllerUnitTests {
 
         Part newPart = new Part("Regular Remschijf", "Remschijf, Regular", "1245745879654732", 12.50, new Category("Remsysteem"));
 
-        Category category = new Category("Remsysteem");
+        
         mockMvc.perform(put("/reviews")
                 .content(mapper.writeValueAsString(newPart))
                 .contentType(MediaType.APPLICATION_JSON))
@@ -183,7 +183,7 @@ public class PartControllerUnitTests {
                 .andExpect(jsonPath("$.description",is("Remschijf, Regular")))
                 .andExpect(jsonPath("$.eanNumber",is("1245745879654732")))
                 .andExpect(jsonPath("$.price",is(12.50)))
-                .andExpect(jsonPath("$.category",is(category)));
+                .andExpect(jsonPath("$.category.name",is("Remsysteem")));
     }
 
     //delete
