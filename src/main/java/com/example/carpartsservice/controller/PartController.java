@@ -14,27 +14,29 @@ import java.util.List;
 public class PartController {
     @Autowired
     private PartRepository partRepository;
+// since we working with testing,we don't need the postConstructor
+//    @PostConstruct
+//    public  void fillDB()
+//    {
+//        if(partRepository.count() == 0)
+//        {
+//            partRepository.save(new Part("RIDEX Remschijf", "Zonder bevestigingsbout, zonder wielnaaf", "1245745879654732", 12.95, new Category("Remsysteem")));
+//            partRepository.save(new Part("RIDEX Remblokkenset", "Schijfrem", "147565748965247", 15.00, new Category("Remsysteem")));
+//            partRepository.save(new Part("RIDEX Remblokkenset", "Schijfrem", "147565748965247", 17.50, new Category("Remsysteem")));
+//        }
+//        System.out.println(partRepository.findPartByEanNumber("147565748965247").getName());
+//    }
 
-    @PostConstruct
-    public  void fillDB()
-    {
-        if(partRepository.count() == 0)
-        {
-            partRepository.save(new Part("RIDEX Remschijf", "Zonder bevestigingsbout, zonder wielnaaf", "1245745879654732", 12.95, new Category("Remsysteem")));
-            partRepository.save(new Part("RIDEX Remblokkenset", "Schijfrem", "147565748965247", 15.00, new Category("Remsysteem")));
-            partRepository.save(new Part("RIDEX Remblokkenset", "Schijfrem", "147565748965247", 17.50, new Category("Remsysteem")));
-        }
-        System.out.println(partRepository.findPartByEanNumber("147565748965247").getName());
-    }
 
-
+    // for testing  purpose
     //welcome
-    @GetMapping("/parts")
-    public String viewWelcome()
-    {
-        return  "app works!";
+//    @GetMapping("/parts")
+//    public String viewWelcome()
+//    {
+//        return  "app works!";
+//
+//    }
 
-    }
 
     // get all parts
     @GetMapping("/parts/view")

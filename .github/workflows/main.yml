@@ -36,6 +36,8 @@ jobs:
       - name: Start Mysql for integration test
         uses: mirromutth/mysql-action@v1.1
         with:
+          host port: 3306 #to be changed
+          container port: 3306
           mysql database: 'partsqldb' # Optional, default value is "test". The specified database which will be create
           mysql root password: ${{ secrets.MYSQL_ROOT_PASSWORD }} # Required if "mysql user" is empty, default is empty. The root superuser password
 
