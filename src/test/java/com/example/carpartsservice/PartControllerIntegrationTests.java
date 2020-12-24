@@ -34,9 +34,9 @@ public class PartControllerIntegrationTests {
     @Autowired
     private PartRepository partRepository;
 
-     private  Part part1 = new Part("RIDEX Remschijf", "Remschijf zonder bevestigingsbout, zonder wielnaaf", "1245745879654732", 12.95, new Category("Remsysteem"));
-     private  Part part2 = new Part("RIDEX Remblokkenset", "Remschijf", "147565748965247", 15.00, new Category("Remsysteem"));
-     private  Part part3 = new Part("BLUE PRINT RE  MBLOKKENSET", "Remschijf, Remblokkenset", "394365748965784", 17.50, new Category("Remsysteem"));
+     Part part1 = new Part("RIDEX Remschijf", "Remschijf zonder bevestigingsbout, zonder wielnaaf", "1245745879654732", 12.95, new Category("Remsysteem"));
+     Part part2 = new Part("RIDEX Remblokkenset", "Remschijf", "147565748965247", 15.00, new Category("Remsysteem"));
+     Part part3 = new Part("BLUE PRINT RE  MBLOKKENSET", "Remschijf, Remblokkenset", "394365748965784", 17.50, new Category("Remsysteem"));
 
 
      @BeforeEach
