@@ -1,12 +1,9 @@
 package com.example.carpartsservice.model;
 
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfiguration;
 
 import javax.persistence.*;
 
 @Entity
-@SpringBootApplication(exclude={HibernateJpaAutoConfiguration.class})
 public class Part {
 
     @Id

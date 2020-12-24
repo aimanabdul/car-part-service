@@ -40,16 +40,19 @@ public class PartControllerUnitTests {
     //Mapper
     private ObjectMapper mapper = new ObjectMapper();
 
-    //initialize objects
-    private Part part1 = new Part("RIDEX Remschijf", "Remschijf zonder bevestigingsbout, zonder wielnaaf", "1245745879654732", 12.95, new Category("Remsysteem"));
-    private Part part2 = new Part("RIDEX Remblokkenset", "Remschijf", "147565748965247", 15.00, new Category("Remsysteem"));
-    private Part part3 = new Part("BLUE PRINT RE  MBLOKKENSET", "Remschijf, Remblokkenset", "394365748965784", 17.50, new Category("Remsysteem"));
-
-    private List<Part> partslist = new ArrayList<>();
 
     //get all parts test
     @Test
     public void givenParts_whenGetParts_thenReturnJsonParts() throws Exception {
+
+         Part part1 = new Part("RIDEX Remschijf", "Remschijf zonder bevestigingsbout, zonder wielnaaf", "1245745879654732", 12.95, new Category("Remsysteem"));
+         Part part2 = new Part("RIDEX Remblokkenset", "Remschijf", "147565748965247", 15.00, new Category("Remsysteem"));
+         Part part3 = new Part("BLUE PRINT RE  MBLOKKENSET", "Remschijf, Remblokkenset", "394365748965784", 17.50, new Category("Remsysteem"));
+
+        List<Part> partslist = new ArrayList<>();
+        partslist.add(part1);
+        partslist.add(part2);
+        partslist.add(part3);
 
         given(partRepository.findAll()).willReturn(partslist);
 
@@ -79,7 +82,7 @@ public class PartControllerUnitTests {
     @Test
     public void givenPart_whenGetPartByEanNumber_thenReturnJsonPart() throws Exception
     {
-        //Part part1 = new Part("RIDEX Remschijf", "Remschijf zonder bevestigingsbout, zonder wielnaaf", "1245745879654732", 12.95, new Category("Remsysteem"));
+        Part part1 = new Part("RIDEX Remschijf", "Remschijf zonder bevestigingsbout, zonder wielnaaf", "1245745879654732", 12.95, new Category("Remsysteem"));
 
         given(partRepository.findPartByEanNumber("1245745879654732")).willReturn(part1);
 
@@ -96,8 +99,18 @@ public class PartControllerUnitTests {
 
     //get part by description
     @Test
-    public void givenPart_whenFindPartsByDescriptionContaining_thenReturnJsonPart() throws Exception
+    public void givenPart_whenFindPartsByDescriptionLike_thenReturnJsonPart() throws Exception
     {
+
+        Part part1 = new Part("RIDEX Remschijf", "Remschijf zonder bevestigingsbout, zonder wielnaaf", "1245745879654732", 12.95, new Category("Remsysteem"));
+        Part part2 = new Part("RIDEX Remblokkenset", "Remschijf", "147565748965247", 15.00, new Category("Remsysteem"));
+        Part part3 = new Part("BLUE PRINT RE  MBLOKKENSET", "Remschijf, Remblokkenset", "394365748965784", 17.50, new Category("Remsysteem"));
+
+        List<Part> partslist = new ArrayList<>();
+        partslist.add(part1);
+        partslist.add(part2);
+        partslist.add(part3);
+
 
         given(partRepository.findAllByDescriptionLike("Remschijf")).willReturn(partslist);
 
@@ -126,6 +139,7 @@ public class PartControllerUnitTests {
     //Add a part
     @Test
     public void whenPostPart_thenReturnJsonPart() throws Exception {
+
         Part part = new Part("POSCH Getande riem", "Distributieriem", "218865755965790", 17.50, new Category("Motor"));
 
         mockMvc.perform(post("/parts")
@@ -145,11 +159,9 @@ public class PartControllerUnitTests {
     @Test
     public void givenPart_whenPutPart_thenReturnJsonPart() throws Exception {
 
-        Part toUpdatepart = new Part("MASTER-SPORT Remschijf", "Remschijf, SPORT-REMSCHIJF", "1245745879654732", 30.85, new Category("Remsysteem"));
+        Part toUpdatePart = new Part("MASTER-SPORT Remschijf", "Remschijf, SPORT-REMSCHIJF", "1245745879654732", 30.85, new Category("Remsysteem"));
 
-        partRepository.save(toUpdatepart);
-
-        given(partRepository.findPartByEanNumber("1245745879654732")).willReturn(toUpdatepart);
+        given(partRepository.findPartByEanNumber("1245745879654732")).willReturn(toUpdatePart);
 
         Part newPart = new Part("Regular Remschijf", "Remschijf, Regular", "1245745879654732", 12.50, new Category("Remsysteem"));
 
@@ -170,6 +182,8 @@ public class PartControllerUnitTests {
     @Test
     public void givenPart_whenDeletePart_thenStatusOk() throws Exception {
 
+        Part part1 = new Part("RIDEX Remschijf", "Remschijf zonder bevestigingsbout, zonder wielnaaf", "1245745879654732", 12.95, new Category("Remsysteem"));
+
 
         given(partRepository.findPartByEanNumber("1245745879654732")).willReturn(part1);
         mockMvc.perform(delete("/parts/part/{eanNumber}", "1245745879654732")
@@ -179,9 +193,7 @@ public class PartControllerUnitTests {
 
     @Test
     public void givenNoPart_whenDeletePart_thenStatusNotFound() throws Exception {
-//        Part part = new Part("MASTER-SPORT Remschijf", "Remschijf, SPORT-REMSCHIJF", "1245745879654732", 30.85, new Category("Remsysteem"));
-//
-//        partRepository.save(part);
+
         given(partRepository.findPartByEanNumber("1245745879654700")).willReturn(null);
         mockMvc.perform(delete("/parts/part/{eanNumber}", "1245745879654700")
                 .contentType(MediaType.APPLICATION_JSON))
