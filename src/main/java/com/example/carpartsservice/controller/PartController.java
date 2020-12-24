@@ -74,7 +74,7 @@ public class PartController {
     @PutMapping("/parts")
     public Part updatePart(@RequestBody Part part)
     {
-        Part toUpdatePart = partRepository.findPartByIdAndEanNumber(part.getId(), part.getEanNumber());
+        Part toUpdatePart = partRepository.findPartByEanNumber(part.getEanNumber());
         // update
         toUpdatePart.setCategory(part.getCategory());
         toUpdatePart.setDescription(part.getDescription());
