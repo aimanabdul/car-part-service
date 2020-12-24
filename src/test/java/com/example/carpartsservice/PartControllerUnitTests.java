@@ -97,17 +97,21 @@ public class PartControllerUnitTests {
                 .andExpect(jsonPath("$.description",is("Remschijf zonder bevestigingsbout, zonder wielnaaf")))
                 .andExpect(jsonPath("$.eanNumber",is("1245745879654732")))
                 .andExpect(jsonPath("$.price",is(12.95)))
-                .andExpect(jsonPath("$.category",is(category)));
+                .andExpect(jsonPath("$.category.getName",is("Remsysteem")));
     }
 
 
     //get part by description
     @Test
-    public void givenPart_whenFindPartsByDescription_thenReturnJsonPart() throws Exception
+    public void givenPart_whenFindPartsByDescriptionContaining_thenReturnJsonPart() throws Exception
     {
         Part part1 = new Part("RIDEX Remschijf", "Remschijf zonder bevestigingsbout, zonder wielnaaf", "1245745879654732", 12.95, new Category("Remsysteem"));
         Part part2 = new Part("RIDEX Remblokkenset", "Remschijf", "147565748965247", 15.00, new Category("Remsysteem"));
         Part part3 = new Part("BLUE PRINT RE  MBLOKKENSET", "Remschijf, Remblokkenset", "394365748965784", 17.50, new Category("Remsysteem"));
+
+        partRepository.save(part1);
+        partRepository.save(part2);
+        partRepository.save(part3);
 
         List<Part> partslist = new ArrayList<>();
         partslist.add(part1);
@@ -152,7 +156,7 @@ public class PartControllerUnitTests {
                 .andExpect(jsonPath("$.name",is("POSCH Getande riem")))
                 .andExpect(jsonPath("$.description",is("Distributieriem")))
                 .andExpect(jsonPath("$.eanNumber",is("218865755965790")))
-                .andExpect(jsonPath("$.price",is(66.10)))
+                .andExpect(jsonPath("$.price",is(17.50)))
                 .andExpect(jsonPath("$.category",is(category)));
     }
 
@@ -162,6 +166,8 @@ public class PartControllerUnitTests {
     public void givenPart_whenPutPart_thenReturnJsonPart() throws Exception {
 
         Part toUpdatepart = new Part("MASTER-SPORT Remschijf", "Remschijf, SPORT-REMSCHIJF", "1245745879654732", 30.85, new Category("Remsysteem"));
+
+        partRepository.save(toUpdatepart);
 
         given(partRepository.findPartByEanNumber("1245745879654732")).willReturn(toUpdatepart);
 
@@ -186,6 +192,7 @@ public class PartControllerUnitTests {
 
         Part part = new Part("MASTER-SPORT Remschijf", "Remschijf, SPORT-REMSCHIJF", "1245745879654732", 30.85, new Category("Remsysteem"));
 
+        partRepository.save(part);
         given(partRepository.findPartByEanNumber("1245745879654732")).willReturn(part);
         mockMvc.perform(delete("parts/part/{eanNumber}", "1245745879654732")
                 .contentType(MediaType.APPLICATION_JSON))
@@ -194,7 +201,9 @@ public class PartControllerUnitTests {
 
     @Test
     public void givenNoPart_whenDeletePart_thenStatusNotFound() throws Exception {
+        Part part = new Part("MASTER-SPORT Remschijf", "Remschijf, SPORT-REMSCHIJF", "1245745879654732", 30.85, new Category("Remsysteem"));
 
+        partRepository.save(part);
         given(partRepository.findPartByEanNumber("1245745879654700")).willReturn(null);
         mockMvc.perform(delete("parts/part/{eanNumber}", "1245745879654700")
                 .contentType(MediaType.APPLICATION_JSON))
