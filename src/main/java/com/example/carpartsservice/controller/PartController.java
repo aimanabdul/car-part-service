@@ -50,7 +50,7 @@ public class PartController {
 
     //get part by eanNumber
     @GetMapping("/parts/part/{eanNumber}")
-    public Part getPartById(@PathVariable String eanNumber)
+    public Part getPartByEanNumber(@PathVariable String eanNumber)
     {
         return  partRepository.findPartByEanNumber(eanNumber);
 
