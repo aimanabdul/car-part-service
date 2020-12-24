@@ -51,7 +51,7 @@ public class PartControllerUnitTests {
         List<Part> partslist = new ArrayList<>();
         partslist.add(part1);
         partslist.add(part2);
-        partslist.add(part2);
+        partslist.add(part3);
 
         given(partRepository.findAll()).willReturn(partslist);
 
@@ -84,13 +84,8 @@ public class PartControllerUnitTests {
     public void givenPart_whenGetPartByEanNumber_thenReturnJsonPart() throws Exception
     {
         Part part1 = new Part("RIDEX Remschijf", "Remschijf zonder bevestigingsbout, zonder wielnaaf", "1245745879654732", 12.95, new Category("Remsysteem"));
-        Part part2 = new Part("RIDEX Remblokkenset", "Remschijf", "147565748965247", 15.00, new Category("Remsysteem"));
-        Part part3 = new Part("BLUE PRINT RE  MBLOKKENSET", "Remschijf, Remblokkenset", "394365748965784", 17.50, new Category("Remsysteem"));
-
-        partRepository.save(part1);
-        partRepository.save(part2);
-        partRepository.save(part3);
-
+        //Part part2 = new Part("RIDEX Remblokkenset", "Remschijf", "147565748965247", 15.00, new Category("Remsysteem"));
+        //Part part3 = new Part("BLUE PRINT RE  MBLOKKENSET", "Remschijf, Remblokkenset", "394365748965784", 17.50, new Category("Remsysteem"));
 
         given(partRepository.findPartByEanNumber("1245745879654732")).willReturn(part1);
 
@@ -114,14 +109,10 @@ public class PartControllerUnitTests {
         Part part2 = new Part("RIDEX Remblokkenset", "Remschijf", "147565748965247", 15.00, new Category("Remsysteem"));
         Part part3 = new Part("BLUE PRINT RE  MBLOKKENSET", "Remschijf, Remblokkenset", "394365748965784", 17.50, new Category("Remsysteem"));
 
-        partRepository.save(part1);
-        partRepository.save(part2);
-        partRepository.save(part3);
-
         List<Part> partslist = new ArrayList<>();
         partslist.add(part1);
         partslist.add(part2);
-        partslist.add(part2);
+        partslist.add(part3);
 
         given(partRepository.findPartsByDescriptionContaining("Remschijf")).willReturn(partslist);
 
