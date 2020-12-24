@@ -12,8 +12,11 @@ import java.util.List;
 
 @RestController
 public class PartController {
+
     @Autowired
     private PartRepository partRepository;
+
+
 // since we working with testing,we don't need the postConstructor
 //    @PostConstruct
 //    public  void fillDB()
@@ -55,7 +58,7 @@ public class PartController {
 
     //get part by description
     @GetMapping("/parts/{description}")
-    public List<Part> findPartsByDescription(@PathVariable String description)
+    public List<Part> findPartsByDescriptionContaining(@PathVariable String description)
     {
         return  partRepository.findPartsByDescriptionContaining(description);
 
