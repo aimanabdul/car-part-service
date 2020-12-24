@@ -97,7 +97,7 @@ public class PartControllerUnitTests {
                 .andExpect(jsonPath("$.description",is("Remschijf zonder bevestigingsbout, zonder wielnaaf")))
                 .andExpect(jsonPath("$.eanNumber",is("1245745879654732")))
                 .andExpect(jsonPath("$.price",is(12.95)))
-                .andExpect(jsonPath("$.category.getName",is("Remsysteem")));
+                .andExpect(jsonPath("$.category.name",is("Remsysteem")));
     }
 
 
@@ -173,8 +173,8 @@ public class PartControllerUnitTests {
 
         Part newPart = new Part("Regular Remschijf", "Remschijf, Regular", "1245745879654732", 12.50, new Category("Remsysteem"));
 
-        
-        mockMvc.perform(put("/reviews")
+
+        mockMvc.perform(put("/parts")
                 .content(mapper.writeValueAsString(newPart))
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
@@ -194,7 +194,7 @@ public class PartControllerUnitTests {
 
         partRepository.save(part);
         given(partRepository.findPartByEanNumber("1245745879654732")).willReturn(part);
-        mockMvc.perform(delete("parts/part/{eanNumber}", "1245745879654732")
+        mockMvc.perform(delete("/parts/part/{eanNumber}", "1245745879654732")
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
     }
@@ -205,7 +205,7 @@ public class PartControllerUnitTests {
 
         partRepository.save(part);
         given(partRepository.findPartByEanNumber("1245745879654700")).willReturn(null);
-        mockMvc.perform(delete("parts/part/{eanNumber}", "1245745879654700")
+        mockMvc.perform(delete("/parts/part/{eanNumber}", "1245745879654700")
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isNotFound());
     }

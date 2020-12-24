@@ -4,6 +4,7 @@ import javax.persistence.*;
 
 @Entity
 public class Part {
+
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private int id;

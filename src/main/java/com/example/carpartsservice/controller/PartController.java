@@ -86,7 +86,7 @@ public class PartController {
 
     }
 
-    @DeleteMapping("parts/part/{eanNumber}")
+    @DeleteMapping("/parts/part/{eanNumber}")
     public ResponseEntity deletePart(@PathVariable String eanNumber)
     {
         Part toDeletePart = partRepository.findPartByEanNumber(eanNumber);
