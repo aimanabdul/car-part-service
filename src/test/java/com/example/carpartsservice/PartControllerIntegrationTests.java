@@ -34,17 +34,17 @@ public class PartControllerIntegrationTests {
     @Autowired
     private PartRepository partRepository;
 
-     Part part1 = new Part("RIDEX Remschijf", "Remschijf zonder bevestigingsbout, zonder wielnaaf", "1245745879654732", 12.95, 1);
-     Part part2 = new Part("RIDEX Remblokkenset", "Remschijf", "147565748965247", 15.00, 1);
-     Part part3 = new Part("BLUE PRINT RE  MBLOKKENSET", "Remschijf, Remblokkenset", "394365748965784", 17.50, 1);
+    Part part1 = new Part("RIDEX Remschijf", "Remschijf zonder bevestigingsbout, zonder wielnaaf", "1245745879654732", 12.95, 1);
+    Part part2 = new Part("RIDEX Remblokkenset", "Remschijf", "147565748965247", 15.00, 1);
+    Part part3 = new Part("BLUE PRINT RE  MBLOKKENSET", "Remschijf, Remblokkenset", "394365748965784", 17.50, 1);
 
 
-     @BeforeEach
+    @BeforeEach
     public void beforeAllTests() {
         // partRepository.deleteAll();
-         partRepository.save(part1);
-         partRepository.save(part2);
-         partRepository.save(part3);
+        partRepository.save(part1);
+        partRepository.save(part2);
+        partRepository.save(part3);
     }
 
     @AfterEach
