@@ -56,11 +56,11 @@ public class PartController {
 
     }
 
-    //get part by description
-    @GetMapping("/parts/{description}")
-    public List<Part> findPartsByDescriptionContaining(@PathVariable String description)
+    //get part by categoryID
+    @GetMapping("/parts/category/{categoryID}")
+    public List<Part> findPartsByCategoryID(@PathVariable int categoryID)
     {
-        return  partRepository.findAllByDescriptionLike(description);
+        return  partRepository.findAllByCategoryID(categoryID);
 
     }
 
@@ -79,7 +79,7 @@ public class PartController {
     {
         Part toUpdatePart = partRepository.findPartByEanNumber(part.getEanNumber());
         // update
-        toUpdatePart.setCategory(part.getCategory());
+        toUpdatePart.setCategoryID(part.getCategoryID());
         toUpdatePart.setDescription(part.getDescription());
         toUpdatePart.setName(part.getName());
         toUpdatePart.setPrice(part.getPrice());

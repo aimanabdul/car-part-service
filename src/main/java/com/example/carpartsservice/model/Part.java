@@ -18,19 +18,20 @@ public class Part {
 
     private double price;
 
-    @ManyToOne
-    private  Category Category;
+    private int categoryID;
+
+
 
     public Part() {
 
     }
 
-    public Part(String name, String description, String eanNumber, double price, Category category) {
+    public Part(String name, String description, String eanNumber, double price, int categoryID) {
         this.name = name;
         this.description = description;
         this.eanNumber = eanNumber;
         this.price = price;
-        Category = category;
+        this.categoryID = categoryID;
     }
 
     public int getId() {
@@ -73,11 +74,11 @@ public class Part {
         this.price = price;
     }
 
-    public Category getCategory() {
-        return Category;
+    public int getCategoryID() {
+        return categoryID;
     }
 
-    public void setCategory(Category category) {
-        Category = category;
+    public void setCategoryID(int categoryID) {
+        this.categoryID = categoryID;
     }
 }
