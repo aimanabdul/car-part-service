@@ -26,7 +26,7 @@ public class CategoryController {
     @GetMapping("/categories/category/{categoryID}")
     public Category findCategoryById(@PathVariable int categoryID)
     {
-        return  categoryRepository.findCategoryById(categoryID);
+        return  categoryRepository.getCategoryById(categoryID);
     }
 
     // get category bij name
@@ -43,7 +43,7 @@ public class CategoryController {
     @PutMapping("/categories")
     public Category updateCategory(@RequestBody Category category)
     {
-        Category toUpdateCategory = categoryRepository.findCategoryById(category.getId());
+        Category toUpdateCategory = categoryRepository.getCategoryById(category.getId());
         // update
         toUpdateCategory.setName(category.getName());
 
@@ -56,7 +56,7 @@ public class CategoryController {
     @DeleteMapping("/categories/category/{categoryID}")
     public ResponseEntity deletePart(@PathVariable int categoryID)
     {
-        Category toDeleteCategory = categoryRepository.findCategoryById(categoryID);
+        Category toDeleteCategory = categoryRepository.getCategoryById(categoryID);
         if(toDeleteCategory != null){
             categoryRepository.delete(toDeleteCategory);
             return ResponseEntity.ok().build();

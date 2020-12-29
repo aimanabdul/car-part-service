@@ -66,7 +66,7 @@ public class CategoryUnitTests {
     {
         Category category1 = new Category("Remsysteem");
 
-        given(categoryRepository.findCategoryById(1)).willReturn(category1);
+        given(categoryRepository.getCategoryById(1)).willReturn(category1);
 
         mockMvc.perform(get("/categories/category/{categoryID}", 1))
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
@@ -116,7 +116,7 @@ public class CategoryUnitTests {
 
         Category category = new Category("Carrosserie");
 
-        given(categoryRepository.findCategoryById(1)).willReturn(category);
+        given(categoryRepository.getCategoryById(1)).willReturn(category);
         mockMvc.perform(delete("/categories/category/{categoryID}", 1)
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
@@ -125,7 +125,7 @@ public class CategoryUnitTests {
     @Test
     public void givenNoCategory_whenDeleteCategory_thenStatusNotFound() throws Exception {
 
-        given(categoryRepository.findCategoryById(99)).willReturn(null);
+        given(categoryRepository.getCategoryById(99)).willReturn(null);
         mockMvc.perform(delete("/categories/category/{categoryID}", 99)
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isNotFound());
