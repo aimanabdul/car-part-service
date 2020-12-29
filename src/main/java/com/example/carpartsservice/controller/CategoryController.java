@@ -29,6 +29,8 @@ public class CategoryController {
         return  categoryRepository.findCategoryById(categoryID);
     }
 
+    // get category bij name
+
     //Add a category
     @PostMapping("/categories")
     public Category addCategory(@RequestBody Category category)

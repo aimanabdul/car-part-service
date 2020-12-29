@@ -23,22 +23,13 @@ public class PartController {
 //    {
 //        if(partRepository.count() == 0)
 //        {
-//            partRepository.save(new Part("RIDEX Remschijf", "Zonder bevestigingsbout, zonder wielnaaf", "1245745879654732", 12.95, new Category("Remsysteem")));
-//            partRepository.save(new Part("RIDEX Remblokkenset", "Schijfrem", "147565748965247", 15.00, new Category("Remsysteem")));
-//            partRepository.save(new Part("RIDEX Remblokkenset", "Schijfrem", "147565748965247", 17.50, new Category("Remsysteem")));
+//            partRepository.save(new Part("RIDEX Remschijf", "Zonder bevestigingsbout, zonder wielnaaf", "1245745879654732", 12.95, 1));
+//            partRepository.save(new Part("RIDEX Remblokkenset", "Schijfrem", "147565748965247", 15.00, 1));
+//            partRepository.save(new Part("RIDEX Remblokkenset", "Schijfrem", "147565748965247", 17.50, 1));
 //        }
 //        System.out.println(partRepository.findPartByEanNumber("147565748965247").getName());
 //    }
 
-
-    // for testing  purpose
-    //welcome
-//    @GetMapping("/parts")
-//    public String viewWelcome()
-//    {
-//        return  "app works!";
-//
-//    }
 
 
     // get all parts
@@ -83,6 +74,7 @@ public class PartController {
         toUpdatePart.setDescription(part.getDescription());
         toUpdatePart.setName(part.getName());
         toUpdatePart.setPrice(part.getPrice());
+        toUpdatePart.setCategoryID(part.getCategoryID());
 
         partRepository.save(toUpdatePart);
         return toUpdatePart;

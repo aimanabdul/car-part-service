@@ -15,7 +15,11 @@ import org.springframework.test.web.servlet.MockMvc;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.collection.IsCollectionWithSize.hasSize;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -51,17 +55,17 @@ public class CategoryIntegrationTests {
     }
 
     // get all categories
-//    @Test
-//    public void givenCategories_whenGetCategories_thenReturnJsonCategories() throws Exception
-//    {
-//        mockMvc.perform(get("/categories"))
-//                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-//                .andExpect(status().isOk())
-//                .andExpect(jsonPath("$", hasSize(3)))
-//                .andExpect(jsonPath("$[0].name",is("Motor")))
-//                .andExpect(jsonPath("$[1].name",is("Remsysteem")))
-//                .andExpect(jsonPath("$[2].name",is("Elektrische systemen")));
-//    }
+    @Test
+    public void givenCategories_whenGetCategories_thenReturnJsonCategories() throws Exception
+    {
+        mockMvc.perform(get("/categories"))
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$", hasSize(3)))
+                .andExpect(jsonPath("$[0].name",is("Motor")))
+                .andExpect(jsonPath("$[1].name",is("Remsysteem")))
+                .andExpect(jsonPath("$[2].name",is("Elektrische systemen")));
+    }
 
     // category by Id
 //    @Test
@@ -75,11 +79,54 @@ public class CategoryIntegrationTests {
 
 
     // add category
+    @Test
+    public void givenCategory_whenPostCategory_thenReturnJsonCategory() throws Exception
+    {
+        Category toBeAddedCategory= new Category("Vering /Demping");
+
+        mockMvc.perform(post("/categories")
+                .content(mapper.writeValueAsString(toBeAddedCategory))
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.name",is("Vering /Demping")));
+    }
+
+    // update
 //    @Test
-//    public void givenCategory_whenPostCategory_thenReturnJsonCategory() throws Exception
+//    public void givenCategory_whenPutCategory_thenReturnJsonCategory() throws Exception
 //    {
-//        Category toBeAddedCategory= new Category("Vering /Demping");
+//        Category toUpdateCategory = new Category("Banden");
+//        toUpdateCategory.setId(1);
+//
+//        mockMvc.perform(put("/categories")
+//                .content(mapper.writeValueAsString(toUpdateCategory))
+//                .contentType(MediaType.APPLICATION_JSON))
+//                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+//                .andExpect(status().isOk())
+//                .andExpect(jsonPath("$.name", is("Banden")));
+//
 //    }
+
+
+    //delete
+    @Test
+    public void givenCategory_whenDeleteCategory_thenStatusOk() throws Exception
+    {
+        mockMvc.perform(delete("/categories/category/{categoryID}", 1)
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
+
+    }
+
+    @Test
+    public void givenNoCategory_whenDeleteCategory_thenStatusOk() throws Exception
+    {
+        mockMvc.perform(delete("/categories/category/{categoryID}",  99)
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
+
+    }
 
 
 
