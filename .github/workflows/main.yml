@@ -38,7 +38,7 @@ jobs:
         with:
           host port: 3306 #to be changed
           container port: 3306
-          mysql database: 'partsqldb' # Optional, default value is "test". The specified database which will be create
+          mysql database: 'car-parts-service-mysql' # Optional, default value is "test". The specified database which will be create
           mysql root password: ${{ secrets.MYSQL_ROOT_PASSWORD }} # Required if "mysql user" is empty, default is empty. The root superuser password
 
       - name: Test and build project
