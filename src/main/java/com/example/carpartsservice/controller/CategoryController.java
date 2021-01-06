@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.PostConstruct;
 import java.util.List;
 
 @RestController
@@ -14,6 +15,17 @@ public class CategoryController {
 
     @Autowired
     private CategoryRepository categoryRepository;
+
+    @PostConstruct
+    public void fillDB()
+    {
+        if(categoryRepository.count() == 0)
+        {
+            categoryRepository.save(new Category("Remschijven"));
+            categoryRepository.save(new Category("Autobatterijen"));
+            categoryRepository.save(new Category("Autobanden"));
+        }
+    }
 
     //get all categories
     @GetMapping("/categories")

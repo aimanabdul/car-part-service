@@ -16,19 +16,17 @@ public class PartController {
     @Autowired
     private PartRepository partRepository;
 
-
-// since we working with testing,we don't need the postConstructor
-//    @PostConstruct
-//    public  void fillDB()
-//    {
-//        if(partRepository.count() == 0)
-//        {
-//            partRepository.save(new Part("RIDEX Remschijf", "Zonder bevestigingsbout, zonder wielnaaf", "1245745879654732", 12.95, 1));
-//            partRepository.save(new Part("RIDEX Remblokkenset", "Schijfrem", "147565748965247", 15.00, 1));
-//            partRepository.save(new Part("RIDEX Remblokkenset", "Schijfrem", "147565748965247", 17.50, 1));
-//        }
-//        System.out.println(partRepository.findPartByEanNumber("147565748965247").getName());
-//    }
+    @PostConstruct
+    public void fillDB()
+    {
+        if(partRepository.count() == 0)
+        {
+            partRepository.save(new Part("RIDEX Remschijf", "Zonder bevestigingsbout, zonder wielnaaf", "3572245731064 ", 12.95, 1));
+            partRepository.save(new Part("RIDEX Remblokkenset", "Schijfrem", "8177540401215", 15.00, 1));
+            partRepository.save(new Part("Varta Blue Dynamic 063 Battery", "25 x 24 x 18 cm; 11.29 Kilograms; 12 Volts", "6448177804482", 43.96, 2));
+            partRepository.save(new Part("Hankook Ventus Prime 2", "Zomerwielen voor personenwagen", "4585783153449", 150, 3));
+        }
+    }
 
 
 
