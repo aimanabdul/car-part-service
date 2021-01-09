@@ -21,9 +21,9 @@ public class CategoryController {
     {
         if(categoryRepository.count() == 0)
         {
-            categoryRepository.save(new Category("Remschijven"));
-            categoryRepository.save(new Category("Autobatterijen"));
-            categoryRepository.save(new Category("Autobanden"));
+            categoryRepository.save(new Category("Remschijven", "cat01"));
+            categoryRepository.save(new Category("Autobatterijen", "cat02"));
+            categoryRepository.save(new Category("Autobanden", "cat03"));
         }
     }
 
@@ -35,10 +35,10 @@ public class CategoryController {
     }
 
     // get category by ID
-    @GetMapping("/categories/category/{categoryID}")
-    public Category findCategoryById(@PathVariable int categoryID)
+    @GetMapping("/categories/category/{categoryId}")
+    public Category findCategoryById(@PathVariable String categoryId)
     {
-        return  categoryRepository.getCategoryById(categoryID);
+        return  categoryRepository.findByCategoryId(categoryId);
     }
 
     // get category bij name
@@ -55,7 +55,7 @@ public class CategoryController {
     @PutMapping("/categories")
     public Category updateCategory(@RequestBody Category category)
     {
-        Category toUpdateCategory = categoryRepository.getCategoryById(category.getId());
+        Category toUpdateCategory = categoryRepository.findByCategoryId(category.getCategoryId());
         // update
         toUpdateCategory.setName(category.getName());
 
@@ -66,9 +66,9 @@ public class CategoryController {
 
     //delete category
     @DeleteMapping("/categories/category/{categoryID}")
-    public ResponseEntity deletePart(@PathVariable int categoryID)
+    public ResponseEntity deletePart(@PathVariable String categoryID)
     {
-        Category toDeleteCategory = categoryRepository.getCategoryById(categoryID);
+        Category toDeleteCategory = categoryRepository.findByCategoryId(categoryID);
         if(toDeleteCategory != null){
             categoryRepository.delete(toDeleteCategory);
             return ResponseEntity.ok().build();

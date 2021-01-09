@@ -39,9 +39,9 @@ public class CategoryUnitTests {
     @Test
     public void givenCategories_whenGetAllCategories_thenReturnJsonCategories() throws Exception
     {
-        Category category1 = new Category("Remsysteem");
-        Category category2 = new Category("Motor");
-        Category category3 = new Category("Vering / Demping");
+        Category category1 = new Category("Remsysteem", "cat01");
+        Category category2 = new Category("Motor", "cat02");
+        Category category3 = new Category("Vering / Demping","cat03");
 
         List<Category> categoriesList = new ArrayList<>();
         categoriesList.add(category1);
@@ -64,11 +64,11 @@ public class CategoryUnitTests {
     @Test
     public void givenCategory_whenFindCategoryById_thenReturnJsonCategory() throws Exception
     {
-        Category category1 = new Category("Remsysteem");
+        Category category1 = new Category("Remsysteem", "cat01");
 
-        given(categoryRepository.getCategoryById(1)).willReturn(category1);
+        given(categoryRepository.findByCategoryId("cat01")).willReturn(category1);
 
-        mockMvc.perform(get("/categories/category/{categoryID}", 1))
+        mockMvc.perform(get("/categories/category/{categoryId}", "cat01"))
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.name",is("Remsysteem")));
@@ -80,7 +80,7 @@ public class CategoryUnitTests {
     @Test
     public void givenCategory_whenPostCategory_thenReturnJsonCategory() throws Exception
     {
-        Category category1 = new Category("Remsysteem");
+        Category category1 = new Category("Remsysteem", "cat01");
 
         mockMvc.perform(post("/categories")
                 .content(mapper.writeValueAsString(category1))
@@ -114,10 +114,10 @@ public class CategoryUnitTests {
     @Test
     public void givenCategory_whenDeleteCategory_thenStatusOk() throws Exception {
 
-        Category category = new Category("Carrosserie");
+        Category category = new Category("Carrosserie", "cat02");
 
-        given(categoryRepository.getCategoryById(1)).willReturn(category);
-        mockMvc.perform(delete("/categories/category/{categoryID}", 1)
+        given(categoryRepository.findByCategoryId("cat02")).willReturn(category);
+        mockMvc.perform(delete("/categories/category/{categoryID}", "cat02")
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
     }
@@ -125,8 +125,8 @@ public class CategoryUnitTests {
     @Test
     public void givenNoCategory_whenDeleteCategory_thenStatusNotFound() throws Exception {
 
-        given(categoryRepository.getCategoryById(99)).willReturn(null);
-        mockMvc.perform(delete("/categories/category/{categoryID}", 99)
+        given(categoryRepository.findByCategoryId("cat012134")).willReturn(null);
+        mockMvc.perform(delete("/categories/category/{categoryID}", "cat012134")
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isNotFound());
     }

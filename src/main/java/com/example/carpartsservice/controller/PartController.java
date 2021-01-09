@@ -21,10 +21,10 @@ public class PartController {
     {
         if(partRepository.count() == 0)
         {
-            partRepository.save(new Part("RIDEX Remschijf", "Zonder bevestigingsbout, zonder wielnaaf", "3572245731064 ", 12.95, 1));
-            partRepository.save(new Part("RIDEX Remblokkenset", "Schijfrem", "8177540401215", 15.00, 1));
-            partRepository.save(new Part("Varta Blue Dynamic 063 Battery", "25 x 24 x 18 cm; 11.29 Kilograms; 12 Volts", "6448177804482", 43.96, 2));
-            partRepository.save(new Part("Hankook Ventus Prime 2", "Zomerwielen voor personenwagen", "4585783153449", 150, 3));
+            partRepository.save(new Part("RIDEX Remschijf", "Zonder bevestigingsbout, zonder wielnaaf", "3572245731064 ", 12.95, "cat01"));
+            partRepository.save(new Part("RIDEX Remblokkenset", "Schijfrem", "8177540401215", 15.00, "cat01"));
+            partRepository.save(new Part("Varta Blue Dynamic 063 Battery", "25 x 24 x 18 cm; 11.29 Kilograms; 12 Volts", "6448177804482", 43.96, "cat02"));
+            partRepository.save(new Part("Hankook Ventus Prime 2", "Zomerwielen voor personenwagen", "4585783153449", 150, "cat03"));
         }
     }
 
@@ -47,7 +47,7 @@ public class PartController {
 
     //get part by categoryID
     @GetMapping("/parts/category/{categoryID}")
-    public List<Part> findPartsByCategoryID(@PathVariable int categoryID)
+    public List<Part> findPartsByCategoryID(@PathVariable String categoryID)
     {
         return  partRepository.findAllByCategoryID(categoryID);
 

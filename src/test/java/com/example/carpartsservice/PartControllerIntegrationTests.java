@@ -34,9 +34,9 @@ public class PartControllerIntegrationTests {
     @Autowired
     private PartRepository partRepository;
 
-    private Part part1 = new Part("RIDEX Remschijf", "Remschijf zonder bevestigingsbout, zonder wielnaaf", "1245745879654732", 12.95, 1);
-    private Part part2 = new Part("RIDEX Remblokkenset", "Remschijf", "147565748965247", 15.00, 1);
-    private Part part3 = new Part("BLUE PRINT RE  MBLOKKENSET", "Remschijf, Remblokkenset", "394365748965784", 17.50, 1);
+    private Part part1 = new Part("RIDEX Remschijf", "Remschijf zonder bevestigingsbout, zonder wielnaaf", "1245745879654732", 12.95, "cat01");
+    private Part part2 = new Part("RIDEX Remblokkenset", "Remschijf", "147565748965247", 15.00, "cat01");
+    private Part part3 = new Part("BLUE PRINT RE  MBLOKKENSET", "Remschijf, Remblokkenset", "394365748965784", 17.50, "cat01");
 
 
     @BeforeEach
@@ -69,17 +69,17 @@ public class PartControllerIntegrationTests {
                 .andExpect(jsonPath("$[0].description",is("Remschijf zonder bevestigingsbout, zonder wielnaaf")))
                 .andExpect(jsonPath("$[0].eanNumber",is("1245745879654732")))
                 .andExpect(jsonPath("$[0].price",is(12.95)))
-                .andExpect(jsonPath("$[0].categoryID",is(1)))
+                .andExpect(jsonPath("$[0].categoryID",is("cat01")))
                 .andExpect(jsonPath("$[1].name",is("RIDEX Remblokkenset")))
                 .andExpect(jsonPath("$[1].description",is("Remschijf")))
                 .andExpect(jsonPath("$[1].eanNumber",is("147565748965247")))
                 .andExpect(jsonPath("$[1].price",is(15.00)))
-                .andExpect(jsonPath("$[1].categoryID",is(1)))
+                .andExpect(jsonPath("$[1].categoryID",is("cat01")))
                 .andExpect(jsonPath("$[2].name",is("BLUE PRINT RE  MBLOKKENSET")))
                 .andExpect(jsonPath("$[2].description",is("Remschijf, Remblokkenset")))
                 .andExpect(jsonPath("$[2].eanNumber",is("394365748965784")))
                 .andExpect(jsonPath("$[2].price",is(17.50)))
-                .andExpect(jsonPath("$[2].categoryID",is(1)));
+                .andExpect(jsonPath("$[2].categoryID",is("cat01")));
     }
 
     //get part by eanNumber
@@ -94,7 +94,7 @@ public class PartControllerIntegrationTests {
                 .andExpect(jsonPath("$.description",is("Remschijf zonder bevestigingsbout, zonder wielnaaf")))
                 .andExpect(jsonPath("$.eanNumber",is("1245745879654732")))
                 .andExpect(jsonPath("$.price",is(12.95)))
-                .andExpect(jsonPath("$.categoryID",is(1)));
+                .andExpect(jsonPath("$.categoryID",is("cat01")));
     }
 
     //get parts by categoryID
@@ -102,7 +102,7 @@ public class PartControllerIntegrationTests {
     public void givenPart_whenFindPartsByCategoryID_thenReturnJsonPart() throws Exception
     {
 
-        mockMvc.perform(get("/parts/category/{categoryID}", 1))
+        mockMvc.perform(get("/parts/category/{categoryID}", "cat01"))
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(3)))
@@ -110,24 +110,24 @@ public class PartControllerIntegrationTests {
                 .andExpect(jsonPath("$[0].description",is("Remschijf zonder bevestigingsbout, zonder wielnaaf")))
                 .andExpect(jsonPath("$[0].eanNumber",is("1245745879654732")))
                 .andExpect(jsonPath("$[0].price",is(12.95)))
-                .andExpect(jsonPath("$[0].categoryID",is(1)))
+                .andExpect(jsonPath("$[0].categoryID",is("cat01")))
                 .andExpect(jsonPath("$[1].name",is("RIDEX Remblokkenset")))
                 .andExpect(jsonPath("$[1].description",is("Remschijf")))
                 .andExpect(jsonPath("$[1].eanNumber",is("147565748965247")))
                 .andExpect(jsonPath("$[1].price",is(15.00)))
-                .andExpect(jsonPath("$[1].categoryID",is(1)))
+                .andExpect(jsonPath("$[1].categoryID",is("cat01")))
                 .andExpect(jsonPath("$[2].name",is("BLUE PRINT RE  MBLOKKENSET")))
                 .andExpect(jsonPath("$[2].description",is("Remschijf, Remblokkenset")))
                 .andExpect(jsonPath("$[2].eanNumber",is("394365748965784")))
                 .andExpect(jsonPath("$[2].price",is(17.50)))
-                .andExpect(jsonPath("$[2].categoryID",is(1)));
+                .andExpect(jsonPath("$[2].categoryID",is("cat01")));
     }
 
    // update part
     @Test
     public void givenPart_whenPutPart_thenReturnJsonPart() throws Exception {
 
-        Part part = new Part("MASTER-SPORT Remschijf", "Remschijf, SPORT-REMSCHIJF", "1245745879654732", 30.85, 2);
+        Part part = new Part("MASTER-SPORT Remschijf", "Remschijf, SPORT-REMSCHIJF", "1245745879654732", 30.85, "cat02");
 
 
         mockMvc.perform(put("/parts")
@@ -139,7 +139,7 @@ public class PartControllerIntegrationTests {
                 .andExpect(jsonPath("$.description",is("Remschijf, SPORT-REMSCHIJF")))
                 .andExpect(jsonPath("$.eanNumber",is("1245745879654732")))
                 .andExpect(jsonPath("$.price",is(30.85)))
-                .andExpect(jsonPath("$.categoryID",is(2)));
+                .andExpect(jsonPath("$.categoryID",is("cat02")));
     }
 
 

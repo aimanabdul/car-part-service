@@ -34,9 +34,9 @@ public class CategoryIntegrationTests {
 
     private ObjectMapper mapper = new ObjectMapper();
 
-    Category category1 = new Category("Motor");
-    Category category2 = new Category("Remsysteem");
-    Category category3 = new Category("Elektrische systemen");
+    Category category1 = new Category("Motor", "cat01");
+    Category category2 = new Category("Remsysteem", "cat02");
+    Category category3 = new Category("Elektrische systemen", "cat03");
 
 
     @BeforeEach
@@ -86,7 +86,7 @@ public class CategoryIntegrationTests {
     @Test
     public void givenCategory_whenPostCategory_thenReturnJsonCategory() throws Exception
     {
-        Category toBeAddedCategory= new Category("Vering /Demping");
+        Category toBeAddedCategory= new Category("Vering /Demping", "cat04");
 
         mockMvc.perform(post("/categories")
                 .content(mapper.writeValueAsString(toBeAddedCategory))

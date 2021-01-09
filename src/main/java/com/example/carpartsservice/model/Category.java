@@ -1,23 +1,23 @@
 package com.example.carpartsservice.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+
 @Entity
 public class Category {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private int id;
-
     private String name;
+
+    @Column(unique=true)
+    private String categoryId;
 
     public Category() {
     }
 
-    public Category( String name) {
-
+    public Category(String name, String categoryId) {
         this.name = name;
+        this.categoryId = categoryId;
     }
 
     public int getId() {
@@ -34,5 +34,13 @@ public class Category {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getCategoryId() {
+        return categoryId;
+    }
+
+    public void setCategoryId(String categoryId) {
+        this.categoryId = categoryId;
     }
 }
